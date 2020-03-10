@@ -1,5 +1,5 @@
 <?php
-require_once "connection.php";
+require_once "../../config/connection.php";
 
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
@@ -9,26 +9,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     } else{
-        $sql = "SELECT id FROM users WHERE username = ?";
+        $sql = "SELECT id FROM users WHERE username = :username";
 
-        if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
+        if( $query= $pdo -> prepare($sql)){
 
             $param_username = trim($_POST["username"]);
 
-            if(mysqli_stmt_execute($stmt)){
-                mysqli_stmt_store_result($stmt);
+            $query-> bindParam(':username', $param_username, PDO::PARAM_STR);
 
-                if(mysqli_stmt_num_rows($stmt) == 1){
+            if($query->execute()) {
+                if ($query->rowCount() == 1) {
                     $username_err = "This username is already taken.";
-                } else{
+                } else {
                     $username = trim($_POST["username"]);
                 }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
             }
-
-            mysqli_stmt_close($stmt);
+            else{
+                echo "<script>alert('Oops! Something went wrong. Please try again later.');</script>";
+            }
         }
     }
 
@@ -51,40 +49,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
 
-        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
 
-        if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+        if($query = $pdo->prepare($sql)){
 
             $param_username = $username;
             $param_password = $password;
 
-            if(mysqli_stmt_execute($stmt)){
+            $query-> bindParam(':username', $param_username, PDO::PARAM_STR);
+            $query-> bindParam(':password', $param_password, PDO::PARAM_STR);
+
+            if($query->execute()){
                 header("location: login.php");
             } else{
-                echo "Something went wrong. Please try again later.";
+                echo " <script> alert('Something went wrong. Please try again later.'); </script> ";
             }
-
-            mysqli_stmt_close($stmt);
         }
     }
-
-    mysqli_close($link);
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
-    </style>
-</head>
+<?php include '../inc/header.php'?>
 <body>
+<?php include '../inc/nav.php' ?>
     <div class="wrapper">
         <h2>Register</h2>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -116,5 +103,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
     </div>
+<?php include '../inc/footer.php' ?>
 </body>
 </html>

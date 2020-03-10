@@ -6,7 +6,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-require_once "connection.php";
+require_once "../../config/connection.php";
 
 $new_password = $confirm_password = "";
 $new_password_err = $confirm_password_err = "";
@@ -31,41 +31,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty($new_password_err) && empty($confirm_password_err)){
-        $sql = "UPDATE users SET password = ? WHERE id = ?";
+        $sql = "UPDATE users SET password = :newpassword WHERE id = :id";
 
-        if($stmt = mysqli_prepare($link, $sql)){
-            mysqli_stmt_bind_param($stmt, "si", $param_password, $param_id);
+        if($query = $pdo->prepare($sql)){
 
-            $param_password = password_hash($new_password, PASSWORD_DEFAULT);
             $param_id = $_SESSION["id"];
 
-            if(mysqli_stmt_execute($stmt)){
+            $query->bindParam(':newpassword', $new_password, PDO::PARAM_STR);
+            $query->bindParam(':id', $param_id, PDO::PARAM_STR);
+
+
+            if($query->execute()){
                 session_destroy();
                 header("location: login.php");
                 exit();
             } else{
-                echo "Oops! Something went wrong. Please try again later.";
+                echo "<script> alert('Oops! Something went wrong. Please try again later.') </script>";
             }
-
-            mysqli_stmt_close($stmt);
         }
     }
-
-    mysqli_close($link);
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Reset Password</title>
-    <link rel="stylesheet" href="style.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
-    </style>
-</head>
+<?php include '../inc/header.php';
+      include '../inc/nav_logged.php';
+?>
 <body>
     <div class="wrapper">
         <h2>Reset Password</h2>
@@ -81,10 +71,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <a class="btn btn-link" href="welcome.php">Cancel</a>
+                <input type="submit" class="button" value="Submit">
+                <a class="button" href="../pages/welcome.php">Cancel</a>
             </div>
         </form>
     </div>
+<?php include '../inc/footer.php'?>
 </body>
 </html>
