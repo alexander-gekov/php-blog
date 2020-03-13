@@ -86,10 +86,11 @@ span{
 .header .greet {
   display: block;
   float: left;
-  font-size: 10px;
+  font-size: 18px;
   padding: 20px 10px;
   text-decoration: none;
 }
+
 
 /* menu */
 
@@ -199,7 +200,12 @@ input{
   padding:50px;
 }
 
-
+.flash-success{
+  padding: 20px;
+  background-color: lightgreen;
+  color: white;
+  margin: 10px;
+}
 
 @media (min-width: 48em) {
   .header li {
@@ -354,38 +360,7 @@ input{
   font-weight: normal;
 }
 
-.search {
-  width: 100%;
-  position: relative;
-  display: flex;
-}
 
-.searchTerm {
-  width: 100%;
-  border: 3px solid #121844;
-  border-right: none;
-  padding: 5px;
-  height: 20px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #ffffff;
-}
-
-.searchTerm:focus{
-  color: #121844;
-}
-
-.searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #2938a8;
-  background: #2938a8;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-}
 
 /*Resize the wrap to see the search bar change!*/
 .wrap{
@@ -412,21 +387,18 @@ input{
     justify-content: center;
   }
   .card-grid-space .num {
-  /margin-left: 0;
-  /text-align: center;
+  margin-left: 0;
+  text-align: center;
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 450px) {
   .cards-wrapper {
     padding: 4rem 2rem;
   }
   .card {
     max-width: calc(100vw - 4rem);
   }
-}
-
-@media screen and (max-width: 450px) {
   .info {
     display: block;
     text-align: center;
