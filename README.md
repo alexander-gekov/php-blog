@@ -1,14 +1,17 @@
-#Database
+# Lifestyle Blog by Alexander & Dragos
 
----
+This is our blog containing posts about better lifestyle.
 
-open config file and set up your credentials
+## DB connection
 
-there is an sql dump also
+Use the sql file in the root to generate database.
 
----
+Change the credentials in the config file in app/config/config.php
 
-Test User:
+## Testing
+
+### Test User:
 
 username: test1
+
 password: password
