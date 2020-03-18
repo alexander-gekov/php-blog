@@ -1,13 +1,16 @@
 <?php
 
-class PostsController extends Controller {
+class PostsController extends Controller
+{
 
     public function __construct()
     {
 
     }
 
-    public function index(){
-
+    public function index()
+    {
+        $data = [];
+        $this->view('posts/index', $data);
     }
 }

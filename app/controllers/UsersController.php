@@ -10,7 +10,7 @@ class UsersController extends Controller
 
     public function index()
     {
-
+        $this->view('user/login');
     }
 
     public function login()
@@ -102,7 +102,7 @@ class UsersController extends Controller
             if (empty($data['password'])) {
                 $data['password_err'] = "Please enter a password.";
             } elseif (strlen($data['password']) < 6) {
-                $data['password_err'] = "Password must have atleast 6 characters.";
+                $data['password_err'] = "Password must have at least 6 characters.";
             }
 
 
@@ -211,13 +211,11 @@ class UsersController extends Controller
                 } else {
                     die('Something went wrong.');
                 }
-            }
-            else {
+            } else {
                 //Load view with errors
                 $this->view('/users/reset', $data);
             }
-        }
-        else{
+        } else {
             $data = [
                 'new_password' => '',
                 'confirm_password' => '',

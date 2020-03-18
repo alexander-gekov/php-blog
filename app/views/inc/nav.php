@@ -10,6 +10,7 @@
             <li><a href="<?php echo URLROOT; ?>/users/login">Login</a></li>
             <li><a href="<?php echo URLROOT; ?>/users/register">Register</a></li>
         <?php else : ?>
+            <li><a href="<?php echo URLROOT; ?>/posts">Posts</a></li>
             <li><a href="<?php echo URLROOT; ?>/users/reset">Reset Password</a></li>
             <li><a href="<?php echo URLROOT; ?>/users/logout">Logout</a></li>
         <?php endif; ?>
