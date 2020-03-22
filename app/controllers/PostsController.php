@@ -45,7 +45,7 @@ class PostsController extends Controller
                 if ($fileError === 0) {
                     if ($fileSize < 20000000) {
                         $imageFullName = uniqid('', false) . '.' . $fileActualExt;
-                        $fileDestination = $_SERVER['DOCUMENT_ROOT'] . '/wad-website/public/img/' . $imageFullName;
+                        $fileDestination = $_SERVER['DOCUMENT_ROOT'] . '/public/img/' . $imageFullName;
                         move_uploaded_file($fileTempName, $fileDestination);
                     }
                 }
@@ -63,11 +63,15 @@ class PostsController extends Controller
 
 
             if (empty($data['title'])) {
-                $data['title_err'] = 'Please enter title';
+                $data['title_err'] = 'Please enter title.';
+            }
+
+            if(strlen($data['title']) > 70){
+                $data['title_err'] = 'Title is too long.'
             }
 
             if (empty($data['text'])) {
-                $data['text_err'] = 'Please enter text';
+                $data['text_err'] = 'Please enter text.';
             }
 
             if (empty($data['title_err']) && empty($data['text_err'])) {
@@ -75,7 +79,7 @@ class PostsController extends Controller
 
                 if ($this->postModel->createPost($data)) {
 
-                    flash('post_added', 'Post Added');
+                    flash('post_added', 'Post Added!');
                     redirect('posts');
 
                 } else {
