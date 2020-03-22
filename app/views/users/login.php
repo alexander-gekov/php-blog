@@ -1,7 +1,7 @@
 
 <?php include APPROOT . '/views/inc/header.php' ?>
 <?php include APPROOT . '/views/inc/nav.php' ?>
-    <div class="wrapper">
+    <div class="wrapper form-wrapper">
         <h2>Login</h2>
         <form name="loginForm" id="loginForm" action="<?php echo URLROOT . '/users/login'; ?>" method="post">
             <?php flash('register_success'); ?>
@@ -20,7 +20,7 @@
                 </p>
             </div>
             <div>
-                <input type="submit" class="button" id="btnSubmit" value="Login">
+                <input type="submit" class="button-black" id="btnSubmit" value="Login">
             </div>
             <p>Don't have an account? <a href="<?php echo URLROOT . '/users/register'?>">Register now</a>.</p>
         </form>

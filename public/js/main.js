@@ -1,5 +1,6 @@
 window.onload = function() {
        var button = document.getElementById("btnSubmit");
+
        if(document.getElementById("loginForm")){
            button.addEventListener("click", validateLoginForm);
        }

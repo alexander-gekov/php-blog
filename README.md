@@ -4,17 +4,9 @@ This is our blog containing posts about better lifestyle.
 
 ## DB connection
 
-Use the sql file in the root to generate database.
+Database is already connected, no need of vpn also.
 
-Change the database credentials in the config file in app/config/config.php
-
-```php
-define('DB_HOST', 'YOUR_HOST');
-define('DB_NAME', 'YOUR_DB_NAME');
-define('DB_USER', 'YOUR_DB_USER');
-define('DB_PASS','YOUR_DB_PASS');
-define('DB_CHARSET', 'utf8mb4');
-```
+Just visit https://alexander-dragos-blog.000webhostapp.com/
 
 ## Testing
 

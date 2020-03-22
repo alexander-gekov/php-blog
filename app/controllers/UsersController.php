@@ -17,7 +17,7 @@ class UsersController extends Controller
     {
 
         //POST
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             //Sanitize
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -74,7 +74,7 @@ class UsersController extends Controller
     public function register()
     {
 //POST
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             //Sanitize
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -154,14 +154,14 @@ class UsersController extends Controller
         unset($_SESSION['user_id']);
         unset($_SESSION['user_name']);
         session_destroy();
-        redirect('/pages/index');
+        redirect('pages');
     }
 
     public function createUserSession($user)
     {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_name'] = $user->username;
-        redirect('/pages/index');
+        redirect('posts');
     }
 
     public function isLoggedIn()
@@ -213,7 +213,7 @@ class UsersController extends Controller
                 }
             } else {
                 //Load view with errors
-                $this->view('/users/reset', $data);
+                $this->view('users/reset', $data);
             }
         } else {
             $data = [
@@ -224,7 +224,7 @@ class UsersController extends Controller
             ];
 
             //Load Form
-            $this->view('/users/reset', $data);
+            $this->view('users/reset', $data);
         }
 
     }

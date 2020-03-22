@@ -1,6 +1,6 @@
 <?php include APPROOT . '/views/inc/header.php' ?>
 <?php include APPROOT . '/views/inc/nav.php' ?>
-<div class="wrapper">
+<div class="wrapper form-wrapper">
     <h2>Reset Password</h2>
     <form action="<?php echo URLROOT . '/users/reset'; ?>" method="post">
 
@@ -20,7 +20,7 @@
             </p>
         </div>
         <div>
-            <input type="submit" class="button" value="Reset">
+            <input type="submit" class="button-black" value="Reset">
             <a class="button" href="<?php URLROOT . '/pages/index' ?>">Cancel</a>
         </div>
     </form>

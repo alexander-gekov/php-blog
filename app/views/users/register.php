@@ -1,6 +1,6 @@
 <?php include APPROOT . '/views/inc/header.php'?>
 <?php include APPROOT . '/views/inc/nav.php' ?>
-    <div class="wrapper">
+    <div class="wrapper form-wrapper">
         <h2>Register</h2>
         <form name="registerForm" id="registerForm" action="<?php echo URLROOT . '/users/register'; ?>" method="post">
             <div>
@@ -25,12 +25,11 @@
               </p>
             </div>
             <div>
-                <input type="submit" class="button" name="Submit" id="btnSubmit" value="Submit">
-                <input type="reset" class="button" value="Clear">
+                <input type="submit" class="button-black" name="Submit" id="btnSubmit" value="Submit">
+                <input type="reset" class="button-black" value="Clear">
             </div>
             <p>Already have an account? <a href="<?php echo URLROOT ?>/users/login">Login here</a>.</p>
         </form>
     </div>
 <?php include APPROOT . '/views/inc/footer.php' ?>
-</body>
-</html>
+
