@@ -52,6 +52,9 @@ $(document).ready = function() {
           if(new_pass.value.length < 6){
               alert('Password should be at least 6 characters.')
           }
+          if(new_pass.value !== confirm_new_pass.value){
+              alert('Passwords should match');
+          }
           if (new_pass.value === "" || confirm_new_pass === null) {
               alert('Please fill in confirm password.');
           }
