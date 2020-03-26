@@ -1,4 +1,4 @@
-window.onload = function() {
+$(document).ready = function() {
        var button = document.getElementById("btnSubmit");
 
        if(document.getElementById("loginForm")){
