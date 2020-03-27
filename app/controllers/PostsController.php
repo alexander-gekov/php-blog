@@ -61,7 +61,7 @@ class PostsController extends Controller
                 'title' => trim($_POST['title']),
                 'text' => trim($_POST['text']),
                 'user_id' => $_SESSION['user_id'],
-                'imgPath' => 'dating.jpg',
+                'imgPath' => $fileDestination,
                 'title_err' => '',
                 'text_err' => ''
             ];

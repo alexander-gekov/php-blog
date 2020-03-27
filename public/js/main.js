@@ -53,7 +53,7 @@ $(document).ready(function () {
         })
     })
 
-    var button = document.getElementById("btnSubmit");
+    var button = $('#btnSubmit');
 
     if (document.getElementById("loginForm")) {
         button.addEventListener("click", validateLoginForm);
