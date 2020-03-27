@@ -15,8 +15,8 @@ class Post
                               posts.id as postId,
                               users.id as userId,
                               posts.imgPath as imgPath 
-                              FROM posts
-                              INNER JOIN users
+                              FROM posts 
+                              INNER JOIN users 
                               ON  posts.user_id = users.id
                               ORDER BY posts.created_at DESC');
 
@@ -40,6 +40,14 @@ class Post
         } else {
             return false;
         }
+    }
+
+    public function getPostById($id){
+        $this->db->query('SELECT * FROM posts WHERE id = :id');
+        $this->db->bind(':id', $id);
+
+        $row = $this->db->single();
+        return $row;
     }
 
 }

@@ -11,7 +11,7 @@ define('DB_CHARSET', 'utf8mb4');
 define('APPROOT', dirname(dirname(__FILE__)) . '/');
 
 //URL root path
-define('URLROOT', 'localhost:8080/wad-website/');
+define('URLROOT', 'http://localhost:8080/wad-website');
 
 //Site name
 define('SITENAME', 'Blog by Alexander & Dragos');

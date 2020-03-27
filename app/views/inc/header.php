@@ -6,8 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title><?php echo SITENAME; ?></title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/public/css/style.css">
-    <script type="text/javascript" src="<?php echo URLROOT; ?>/public/js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <script type="text/javascript" src="<?php echo URLROOT; ?>/public/js/main.js"></script>
 </head>
 <body>

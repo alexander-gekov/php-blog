@@ -21,7 +21,7 @@ include APPROOT . 'views/inc/nav.php';
         <section class="cards-wrapper">
             <?php foreach ($data['posts'] as $post) : ?>
                 <div class="card-grid-space">
-                    <a class="card" style="--bg-img: url(<?php echo URLROOT; ?>/img/<?php echo $post->imgPath?>)" href="/posts/<?php echo $post->id ?>">
+                    <a class="card" style="--bg-img: url(<?php echo URLROOT; ?>/img/<?php echo $post->imgPath?>)" href="<?php echo URLROOT; ?>/posts/show/<?php echo $post->postId ?>">
                         <div>
                             <h1><?php echo $post->title ?></h1>
                             <p><?php $s = substr($post->text, 0, 60); echo substr($s, 0, strrpos($s,' ')) ; ?> ...</p>

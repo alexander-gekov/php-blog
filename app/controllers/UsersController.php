@@ -203,7 +203,7 @@ class UsersController extends Controller
             }
 
             if (empty($data['new_password_err']) && empty($data['confirm_password_err'])) {
-                if ($this->userModel->reset($_SESSION['user_id'], $data['new_password'])) {
+                if ($this->userModel->reset($_SESSION['user_id'], password_hash(['new_password']))) {
                     //Flash
                     flash('password_change_success', 'You successfully changed your password.');
                     //Redirect

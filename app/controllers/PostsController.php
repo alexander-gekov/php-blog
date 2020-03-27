@@ -5,11 +5,18 @@ class PostsController extends Controller
 
     public function __construct()
     {
+        if (!isLoggedIn()) {
+            redirect('users/login');
+        }
         $this->postModel = $this->model('Post');
+        $this->userModel = $this->model('User');
     }
 
     public function index()
     {
+        if (!isLoggedIn()) {
+            redirect('users/login');
+        }
         $posts = $this->postModel->getPosts();
 
         $data = [
@@ -20,9 +27,7 @@ class PostsController extends Controller
 
     public function create()
     {
-        if (!isLoggedIn()) {
-            redirect('users/login');
-        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -66,8 +71,8 @@ class PostsController extends Controller
                 $data['title_err'] = 'Please enter title.';
             }
 
-            if(strlen($data['title']) > 70){
-                $data['title_err'] = 'Title is too long.'
+            if (strlen($data['title']) > 70) {
+                $data['title_err'] = 'Title is too long.';
             }
 
             if (empty($data['text'])) {
@@ -104,5 +109,16 @@ class PostsController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $post = $this->postModel->getPostById($id);
+        $user = $this->userModel->getUserById($post->user_id);
 
+        $data = [
+            'post' => $post,
+            'user' => $user,
+        ];
+
+        $this->view('posts/show', $data);
+    }
 }
