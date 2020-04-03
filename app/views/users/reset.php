@@ -20,7 +20,7 @@
             </p>
         </div>
         <div>
-            <input type="submit" class="button-black" value="Reset">
+            <input type="submit" id="btnSubmit" class="button-black" value="Reset">
             <a class="button" href="<?php URLROOT . '/pages/index' ?>">Cancel</a>
         </div>
     </form>

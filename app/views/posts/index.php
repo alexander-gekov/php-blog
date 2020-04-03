@@ -3,11 +3,11 @@ include APPROOT . 'views/inc/header.php';
 include APPROOT . 'views/inc/nav.php';
 ?>
 
-<div class="wrapper">
+<div class="wrapper wrapper-fix">
     <div class="row" style="width: 100%;">
-        <?php flash('post_added'); ?>
+        <?php flash('post_message'); ?>
     </div>
-    <div class="row">
+    <div class="row row-posts">
         <div class="column">
             <h1>Posts</h1>
         </div>
@@ -24,7 +24,6 @@ include APPROOT . 'views/inc/nav.php';
                     <a class="card" style="--bg-img: url(<?php echo URLROOT; ?>/img/<?php echo $post->imgPath?>)" href="<?php echo URLROOT; ?>/posts/show/<?php echo $post->postId ?>">
                         <div>
                             <h1><?php echo $post->title ?></h1>
-                            <p><?php $s = substr($post->text, 0, 60); echo substr($s, 0, strrpos($s,' ')) ; ?> ...</p>
                             <div class="date"><?php echo date('d/m/Y', strtotime($post->created_at)) ?></div>
                             <div class="tags">
                                 <div class="tag"><?php echo $post->username ?></div>

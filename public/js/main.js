@@ -53,7 +53,7 @@ $(document).ready(function () {
         })
     })
 
-    var button = $('#btnSubmit');
+    var button = document.getElementById("btnSubmit");
 
     if (document.getElementById("loginForm")) {
         button.addEventListener("click", validateLoginForm);
@@ -113,5 +113,7 @@ $(document).ready(function () {
             alert('Please fill in confirm password.');
         }
     }
+    
+    CKEDITOR.replace('editor');
 
 });

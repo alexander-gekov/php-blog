@@ -15,11 +15,12 @@ body {
     margin: 0;
     font-size: 16px;
     font-family: Roboto, sans-serif;
-    background-color: #ffffff;
+    background-color: #f2f2f2;
     min-height: 100vh;
     min-width: 320px;
     line-height: 1.6rem;
     max-width: 100%;
+    overflow-x: hidden;
 }
 
 textarea {
@@ -41,7 +42,7 @@ footer {
     bottom: 0;
     width: 100%;
     height: 3rem;
-    padding: 1em 2em;
+    margin-top: 20px;
     background-color: #0c112a;
     color: white;
     text-align: center;
@@ -91,6 +92,7 @@ span {
     float: left;
     font-size: 2em;
     padding: 10px 20px;
+    padding-top: 20px;
     text-decoration: none;
 }
 
@@ -221,10 +223,52 @@ h1 {
     background-color: #1e62d0;
 }
 
-.button-blue:active {
+.button-blue:active, .button-green:active , .button-red{
     position: relative;
     top: 1px;
 }
+
+.button-green {
+    box-shadow:inset 0px -3px 7px 0px #3dc21b;
+    background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+    background-color:#44c767;
+    border-radius:3px;
+    border:1px solid #18ab29;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    padding:9px 23px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #2f6627;
+}
+.button-green:hover {
+    background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+    background-color:#5cbf2a;
+}
+
+.button-red {
+    box-shadow:inset 0px -3px 7px 0px #f29c93;
+    background:linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+    background-color:#fe1a00;
+    border-radius:3px;
+    border:1px solid #d83526;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    padding:9px 23px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #b23e35;
+}
+.button-red:hover {
+    background:linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+    background-color:#ce0100;
+}
+
+
 
 input {
     width: 100%;
@@ -236,8 +280,7 @@ input {
 
 .wrapper {
     display: block;
-    padding: 60px;
-    padding-top: 70px;
+    padding: 70px 0;
     margin: 0;
 }
 
@@ -250,29 +293,31 @@ input {
 
 .container {
     margin: 60px auto;
-    padding: 20px;
-    padding-top: 60px;
-    padding-bottom: 60px;
-    width: 980px;
+    padding: 40px 0;
+    width: 960px;
     overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 20px 2px gray;
 }
 
 .article {
-    padding: 20px 30px;
+    padding: 20px;
     font-size: 18px;
     line-height: 2.3rem;
     font-family: Roboto;
+    text-align: center;
 
 }
 
 .article p {
     padding: 10px 20px;
-    letter-spacing: 2px;
+    letter-spacing: 1.4px;
 }
 
 .article img {
     max-width: 90%;
-    padding: 20px;
+    max-height: 600px;
+    padding-top: 20px;
 
 }
 
@@ -337,11 +382,13 @@ input {
 }
 
 .column {
-    flex: 1 1 0px;
+    flex: 1 1 100px;
     padding: 20px;
+    text-align: center;
 }
 
 .flash-success {
+    max-width: 100%;
     padding: 20px;
     background-color: lightgreen;
     color: white;
@@ -551,6 +598,11 @@ input {
 
 @media screen and (max-width: 600px) {
 
+    .row-posts{
+          /* padding: 0 50px; */
+          margin: 0 10%;
+    }
+
     footer p {
         padding-left: 10px;
     }
@@ -574,6 +626,13 @@ input {
 
     .header .greet {
         font-size: 14px;
+        max-width: 120px;
+        padding: 10px;
+    }
+
+    .header .logo{
+        font-size: 1.5em;
+        padding: 10px 20px;
     }
 
     .menu-icon {
@@ -597,6 +656,7 @@ input {
     h1 {
         padding-top: 10px;
         padding-right: 10px;
+        line-height: 1.2;
     }
 
     .info h1 {
@@ -606,15 +666,14 @@ input {
     body {
         overflow-x: hidden;
     }
+    
+    .container{
+        margin: 60px 10px;
+    }
 
 }
 
 @media screen and (max-width: 400px) {
-
-    .social-icons a {
-        width: 16px;
-        heigth: 16px;
-    }
 
     .greet {
         font-size: 12px;
@@ -628,13 +687,8 @@ input {
         font-size: 14px;
     }
 
-    .wrapper {
-        padding-top: 70px;
-        padding-left: 10px;
-    }
-
     .cards-wrapper {
-        padding: 2em;
+        /* padding: 2em; */
     }
 
     .card {
