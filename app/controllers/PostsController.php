@@ -18,11 +18,29 @@ class PostsController extends Controller
             redirect('users/login');
         }
         $posts = $this->postModel->getPosts();
+        $my_posts = $this->postModel->getMyPosts($_SESSION['user_id']);
 
         $data = [
-            'posts' => $posts
+            'posts' => $posts,
+            'my_posts' => $my_posts,
         ];
         $this->view('posts/index', $data);
+    }
+
+    public function my_posts(){
+        $my_posts = $this->postModel->getMyPosts($_SESSION['user_id']);
+        $data = [
+            'my_posts' => $my_posts,
+        ];
+        $this->view('posts/my_posts', $data);
+    }
+
+    public function all_posts(){
+        $posts = $this->postModel->getPosts();
+        $data = [
+            'posts' => $posts,
+        ];
+        $this->view('posts/all_posts', $data);
     }
 
     public function create()
@@ -198,7 +216,7 @@ class PostsController extends Controller
         } else {
             $post = $this->postModel->getPostById($id);
             //check for owner
-            if ($post->user_id != $_SESSION['user_id']) {
+            if ($post->user_id != $_SESSION['user_id'] && !isAdmin()) {
                 redirect('posts');
             }
             $data = [
@@ -219,6 +237,7 @@ class PostsController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //check for owner
+            $post = $this->postModel->getPostById($id);
             if ($post->user_id != $_SESSION['user_id']) {
                 redirect('/posts');
             }

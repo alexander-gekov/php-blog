@@ -2,6 +2,7 @@
 <?php include APPROOT . '/views/inc/nav.php' ?>
 
 <div class="wrapper form-wrapper">
+    <a href="<?php echo URLROOT;?>/posts" class="button-black m-20">Back</a>
     <h2>Create Post</h2>
     <form name="createForm" id="createForm" enctype="multipart/form-data" action="<?php echo URLROOT . '/posts/create'; ?>" method="post">
         <div>

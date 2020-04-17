@@ -88,4 +88,13 @@ class User
 
         return $row;
     }
+
+    public function getUsers(){
+        $sql = 'SELECT * FROM users';
+        $this->db->query($sql);
+
+        $result = $this->db->result();
+
+        return $result;
+    }
 }

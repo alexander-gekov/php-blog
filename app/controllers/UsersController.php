@@ -173,6 +173,15 @@ class UsersController extends Controller
         }
     }
 
+    public function isAdmin(){
+        if($_SESSION['user_id'] == ADMINID){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public function reset()
     {
 //POST

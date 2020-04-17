@@ -25,7 +25,27 @@ class Post
         return $results;
     }
 
-    public function createPost($data){
+
+    public function getMyPosts($id)
+    {
+        $this->db->query('SELECT *,
+                              posts.id as postId,
+                              users.id as userId,
+                              posts.imgPath as imgPath 
+                              FROM posts 
+                              INNER JOIN users 
+                              ON  posts.user_id = users.id
+                              WHERE users.id = :user_id
+                              ORDER BY posts.created_at DESC');
+        $this->db->bind(':user_id', $id);
+
+        $results = $this->db->result();
+
+        return $results;
+    }
+
+    public function createPost($data)
+    {
         $sql = 'INSERT INTO posts (title, text, user_id, imgPath) VALUES (:title, :text, :user_id, :imgPath)';
         //Prepare
         $this->db->query($sql);
@@ -42,7 +62,8 @@ class Post
         }
     }
 
-    public function getPostById($id){
+    public function getPostById($id)
+    {
         $this->db->query('SELECT * FROM posts WHERE id = :id');
         $this->db->bind(':id', $id);
 
@@ -50,7 +71,8 @@ class Post
         return $row;
     }
 
-    public function updatePost($data){
+    public function updatePost($data)
+    {
         $sql = 'UPDATE posts SET title = :title, text = :text, imgPath = :imgPath WHERE id = :id';
         //Prepare
         $this->db->query($sql);
@@ -68,7 +90,8 @@ class Post
         }
     }
 
-    public function deletePost($id){
+    public function deletePost($id)
+    {
         $sql = 'DELETE FROM posts WHERE  id = :id';
         //Prepare
         $this->db->query($sql);

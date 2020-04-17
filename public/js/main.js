@@ -113,7 +113,21 @@ $(document).ready(function () {
             alert('Please fill in confirm password.');
         }
     }
-    
+
     CKEDITOR.replace('editor');
+
+    $("#my_posts").click(function(){
+        $.get("posts/my_posts",function(data){
+            $('#posts_container').html(data);
+        })
+    })
+
+
+    $("#all_posts").click(function(){
+        $.get("posts/all_posts",function(data){
+            $('#posts_container').html(data);
+        })
+    })
+
 
 });

@@ -10,6 +10,9 @@
             <li><a href="<?php echo URLROOT; ?>/users/login">Login</a></li>
             <li><a href="<?php echo URLROOT; ?>/users/register">Register</a></li>
         <?php else : ?>
+            <?php if (isAdmin()) : ?>
+                <li><a href="<?php echo URLROOT; ?>/admin">Admin Panel</a></li>
+            <?php endif; ?>
             <li><a href="<?php echo URLROOT; ?>/posts">Posts</a></li>
             <li><a href="<?php echo URLROOT; ?>/users/reset">Reset Password</a></li>
             <li><a href="<?php echo URLROOT; ?>/users/logout">Logout</a></li>

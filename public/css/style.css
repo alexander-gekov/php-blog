@@ -52,6 +52,23 @@ span {
     color: red;
 }
 
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.m-20{
+    margin: 20px;
+}
+
 /* header */
 
 .header {
@@ -175,14 +192,6 @@ span {
     top: 0;
 }
 
-h1, h2 {
-    text-align: center;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
 .button-black {
     background-color: #121844;
     border: none;
@@ -266,16 +275,6 @@ h1 {
 .button-red:hover {
     background:linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
     background-color:#ce0100;
-}
-
-
-
-input {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border-radius: 8px;
 }
 
 .wrapper {
@@ -534,6 +533,15 @@ input {
 .info h1 {
     font-size: 1em;
     font-weight: normal;
+}
+#users {
+    margin-top: 10px;
+    display: block;
+}
+
+#users td, #users th {
+    padding: 12px;
+    justify-content: space-around;
 }
 
 /* MEDIA QUERIES */
