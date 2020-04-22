@@ -81,13 +81,21 @@ class UsersController extends Controller
 
 
             $data = [
+                'fname' => trim($_POST["fname"]),
                 'username' => trim($_POST["username"]),
                 'password' => trim($_POST["password"]),
+                'email' => trim($_POST["email"]),
                 'confirm_password' => trim($_POST["confirm_password"]),
+                'fname_err' => '',
                 'username_err' => '',
+                'email_err' => '',
                 'password_err' => '',
                 'confirm_password_err' => '',
             ];
+
+            if (empty($data['fname'])) {
+                $data['fname_err'] = "Please enter a name.";
+            }
 
             //Empty username or taken username
             if (empty($data['username'])) {
@@ -95,6 +103,15 @@ class UsersController extends Controller
             } else {
                 if ($this->userModel->findUserByUsername($data['username'])) {
                     $data['username_err'] = 'Username is already taken.';
+                }
+            }
+
+            //EMail
+            if (empty($data['email'])) {
+                $data['email_err'] = "Please enter an email.";
+            } else {
+                if ($this->userModel->findUserByEmail($data['email'])) {
+                    $data['email_err'] = 'Email is already in use.';
                 }
             }
 
@@ -115,7 +132,10 @@ class UsersController extends Controller
                 }
             }
 
-            if (empty($data['username_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])) {
+
+
+            if (empty($data['fname_err']) && empty($data['username_err']) && empty($data['email_err'])
+                && empty($data['password_err']) && empty($data['confirm_password_err'])) {
 
                 //Password Hash
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -132,14 +152,20 @@ class UsersController extends Controller
 
             } else {
                 //Load view with errors
+                echo 'dfdsfsf';
+                print_r($data);
                 $this->view('/users/register', $data);
             }
         } else {
             $data = [
+                'fname' => '',
                 'username' => '',
                 'password' => '',
+                'email' => '',
                 'confirm_password' => '',
+                'fname_err' => '',
                 'username_err' => '',
+                'email_err' => '',
                 'password_err' => '',
                 'confirm_password_err' => '',
             ];
@@ -173,12 +199,65 @@ class UsersController extends Controller
         }
     }
 
-    public function isAdmin(){
-        if($_SESSION['user_id'] == ADMINID){
+    public function isAdmin()
+    {
+        if ($_SESSION['user_id'] == ADMINID) {
             return true;
-        }
-        else{
+        } else {
             return false;
+        }
+    }
+
+    public function my_profile()
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+            $data = [
+                'imgUrl' => '',
+                'id' => $_SESSION['user_id']
+            ];
+
+            $file = $_FILES['image'];
+            $fileName = $file['name'];
+            $fileType = $file['type'];
+            $fileTempName = $file['tmp_name'];
+            $fileError = $file['error'];
+            $fileSize = $file['size'];
+            $imageFullName = '';
+
+            $fileExt = explode('.', $fileName);
+            $fileActualExt = strtolower(end($fileExt));
+
+            $allowed = array('jpg', 'jpeg', 'png');
+
+            if (in_array($fileActualExt, $allowed)) {
+                if ($fileError === 0) {
+                    if ($fileSize < 20000000) {
+                        $imageFullName = uniqid('', false) . '.' . $fileActualExt;
+                        $data['imgUrl'] = $imageFullName;
+                        $fileDestination = $_SERVER['DOCUMENT_ROOT'] . '/wad-website/public/img/' . $imageFullName;
+                        move_uploaded_file($fileTempName, $fileDestination);
+                    }
+                }
+
+            }
+
+
+            if ($this->userModel->updateImage($data)) {
+                redirect('users/my_profile');
+            }
+
+        } else {
+            if ($this->isLoggedIn()) {
+
+                $user = $this->userModel->getUserById($_SESSION['user_id']);
+                $data = [
+                    'user' => $user,
+                ];
+                $this->view('users/my_profile', $data);
+            } else {
+                redirect('users/login');
+            }
         }
     }
 
@@ -213,7 +292,7 @@ class UsersController extends Controller
 
             if (empty($data['new_password_err']) && empty($data['confirm_password_err'])) {
                 $data['new_password'] = password_hash($data['new_password'], PASSWORD_DEFAULT);
-                if ($this->userModel->reset($_SESSION['user_id'],$data['new_password'])) {
+                if ($this->userModel->reset($_SESSION['user_id'], $data['new_password'])) {
                     //Flash
                     flash('password_change_success', 'You successfully changed your password.');
                     //Redirect
@@ -237,5 +316,52 @@ class UsersController extends Controller
             $this->view('users/reset', $data);
         }
 
+    }
+
+    public function recover()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $email = trim($_POST['email']);
+            $user = $this->userModel->getUserByEmail($email);
+            $password = generateRandomString(6);
+
+            $to = $user->email;
+            $subject = "Password Reset";
+            $email_body = "Your new password is " . $password . ". Please change it as soon as possible.";
+            mail($to, $subject, $email_body);
+
+            $hashed_password = password_hash($password);
+            $this->userModel->reset($user->id, $hashed_password);
+            flash('register_success', 'Password Reset Successfully.');
+            $this->view('users/login');
+        } else {
+            $data = [
+                'email_err' => ''
+            ];
+            $this->view('/users/forgotpassword', $data);
+        }
+
+    }
+
+    public function delete($id)
+    {
+        if (!$this->isAdmin()) {
+            redirect('/');
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //check for owner
+            if (!$this->isAdmin()) {
+                redirect('/');
+            }
+            if ($this->userModel->deleteUser($id)) {
+                flash('admin_message', 'User Removed');
+                redirect('admin');
+            } else {
+                die();
+            }
+
+        } else {
+            redirect('/');
+        }
     }
 }

@@ -23,6 +23,7 @@
                 <input type="submit" class="button-black" id="btnSubmit" value="Login">
             </div>
             <p>Don't have an account? <a href="<?php echo URLROOT . '/users/register'?>">Register now</a>.</p>
+            <a href="<?php echo URLROOT . '/users/recover'?>">Forgot password?</a>
         </form>
     </div>
     <?php include APPROOT . '/views/inc/footer.php'; ?>

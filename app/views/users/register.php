@@ -4,11 +4,25 @@
         <h2>Register</h2>
         <form name="registerForm" id="registerForm" action="<?php echo URLROOT . '/users/register'; ?>" method="post">
             <div>
+                <p>
+                    <label for="fname"><b>Name: </b><sup>*</sup></label>
+                    <input type="text" name="fname" id="fname" value="<?php echo $data['fname']; ?>">
+                    <span name="fname_err"><?php echo $data['fname_err'] ?></span>
+                </p>
+            </div>
+            <div>
               <p>
                 <label for="username"><b>Username: </b><sup>*</sup></label>
                 <input type="text" name="username" id="registerUsername" value="<?php echo $data['username']; ?>">
                 <span name="username_err"><?php echo $data['username_err'] ?></span>
               </p>
+            </div>
+            <div>
+                <p>
+                    <label for="email"><b>Email: </b><sup>*</sup></label>
+                    <input type="text" name="email" id="registerEmail" value="<?php echo $data['email']; ?>">
+                    <span name="email_err"><?php echo $data['email_err'] ?></span>
+                </p>
             </div>
             <div>
               <p>

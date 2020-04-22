@@ -106,4 +106,15 @@ class Post
         }
     }
 
+    public function getPostCount($user_id){
+        $sql ='SELECT * from posts where user_id = :user_id';
+
+        $this->db->query($sql);
+
+        $this->db->bind(':user_id',$user_id);
+
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
 }

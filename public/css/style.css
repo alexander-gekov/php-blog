@@ -535,13 +535,13 @@ input {
     font-weight: normal;
 }
 #users {
-    margin-top: 10px;
-    display: block;
+    display: flex;
+    align-self: center;
+    margin: 0 200px;
 }
 
 #users td, #users th {
     padding: 12px;
-    justify-content: space-around;
 }
 
 /* MEDIA QUERIES */

@@ -9,14 +9,19 @@ class AdminController extends Controller
             redirect('pages');
         }
         $this->userModel = $this->model('User');
+        $this->postModel = $this->model('Post');
     }
 
     public function index()
     {
         $users = $this->userModel->getUsers();
+
+        foreach ($users as $user){
+            $user->postCount=$this->postModel->getPostCount($user->id);
+        }
+
         $data = [
-            'users' => $users,
-            'postCount' => 33,
+            'users' => $users
         ];
 
         $this->view('admin/index', $data);

@@ -11,11 +11,13 @@ class User
 
     public function register($data)
     {
-        $sql = 'INSERT INTO users (username, password) VALUES (:username, :password)';
+        $sql = 'INSERT INTO users (fname,username,email,password) VALUES (:fname, :username,:email, :password)';
         //Prepare
         $this->db->query($sql);
         //Bind
+        $this->db->bind(':fname', $data['fname']);
         $this->db->bind(':username', $data['username']);
+        $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);
         //Execute
         if ($this->db->execute()) {
@@ -79,6 +81,33 @@ class User
         }
     }
 
+    public function findUserByEmail($email)
+    {
+        $sql = 'SELECT * FROM users WHERE email = :email';
+        $this->db->query($sql);
+        $this->db->bind(':email', $email);
+
+        $row = $this->db->single();
+
+        //check if row is 1 or 0
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUserByEmail($email)
+    {
+        $sql = 'SELECT * FROM users WHERE email = :email';
+        $this->db->query($sql);
+        $this->db->bind(':email', $email);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
     public function getUserById($id){
         $sql = 'SELECT * FROM users WHERE id = :id';
         $this->db->query($sql);
@@ -96,5 +125,38 @@ class User
         $result = $this->db->result();
 
         return $result;
+    }
+
+    public function updateImage($data)
+    {
+        $sql = 'UPDATE users SET imgUrl = :imgUrl WHERE id = :id';
+        //Prepare
+        $this->db->query($sql);
+        //Bind
+
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':imgUrl', $data['imgUrl']);
+        //Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteUser($id)
+    {
+        $sql = 'DELETE FROM users WHERE  id = :id';
+        //Prepare
+        $this->db->query($sql);
+        //Bind
+
+        $this->db->bind(':id', $id);
+        //Execute
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
