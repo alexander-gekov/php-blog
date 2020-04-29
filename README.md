@@ -1,6 +1,6 @@
-# Lifestyle Blog by Alexander & Dragos
+# Aleksandar's Blog
 
-This is our blog containing posts about better lifestyle.
+This is my blog containing posts about better lifestyle.
 
 ## DB connection
 
